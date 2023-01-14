@@ -56,6 +56,7 @@ module.exports = {
                   /**
                    * Put your custom rust-based swc plugin here
                    */
+                  ["swc-plugin-hello", {}]
                 ]
               },
               transform: {
