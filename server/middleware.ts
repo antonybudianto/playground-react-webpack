@@ -1,13 +1,13 @@
-import express from "express";
+import expressStaticGzip from "express-static-gzip";
 
 export const initStaticMiddleware = (app) => {
   app.use(
-    express.static("./build/client", {
+    expressStaticGzip("./build/client", {
       index: false
     })
   );
   app.use(
-    express.static("./public", {
+    expressStaticGzip("./public", {
       index: false
     })
   );
