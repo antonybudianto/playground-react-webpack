@@ -9,7 +9,14 @@ module.exports = {
   },
   optimization: {
     minimize: true,
-    minimizer: [new TerserPlugin({})]
+    minimizer: [
+      new TerserPlugin({
+        minify: TerserPlugin.swcMinify,
+        // `terserOptions` options will be passed to `swc` (`@swc/core`)
+        // Link to options - https://swc.rs/docs/config-js-minify
+        terserOptions: {}
+      })
+    ]
   },
   plugins: [new MiniCssExtractPlugin()],
   module: {
@@ -18,18 +25,45 @@ module.exports = {
         test: /\.[tj]sx?$/,
         exclude: /node_modules/,
         use: {
-          loader: "babel-loader",
+          loader: "swc-loader",
           options: {
-            presets: [
-              "@babel/preset-env",
-              "@babel/preset-typescript",
-              [
-                "@babel/preset-react",
-                {
+            module: {
+              type: "es6"
+            },
+            minify: process.env.NODE_ENV !== "development",
+            isModule: true,
+            jsc: {
+              minify: {
+                compress: {
+                  ecma: 5,
+                  // The following two options are known to break valid JavaScript code (Taken from next.js)
+                  comparisons: false,
+                  inline: 2 // https://github.com/vercel/next.js/issues/7178#issuecomment-493048965
+                },
+                mangle: true,
+                format: {
+                  asciiOnly: true,
+                  comments: /^ webpack/
+                }
+              },
+              target: "es2016",
+              parser: {
+                syntax: "typescript",
+                tsx: true
+              },
+              experimental: {
+                plugins: [
+                  /**
+                   * Put your custom rust-based swc plugin here
+                   */
+                ]
+              },
+              transform: {
+                react: {
                   runtime: "automatic"
                 }
-              ]
-            ]
+              }
+            }
           }
         }
       },

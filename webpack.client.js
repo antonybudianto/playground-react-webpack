@@ -11,8 +11,7 @@ module.exports = merge(config, {
   output: {
     path: path.resolve(__dirname, "build", "client"),
     filename: "index.js",
-    publicPath: "/",
-    libraryTarget: "umd"
+    publicPath: "/"
   },
   plugins: [
     new HtmlWebpackPlugin({
