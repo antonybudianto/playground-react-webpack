@@ -1,0 +1,47 @@
+{
+  "name": "playground-react18-ssr-stream",
+  "version": "1.0.0",
+  "description": "React 18 + SSR Stream + TypeScript",
+  "private": true,
+  "license": "MIT",
+  "scripts": {
+    "build:client": "NODE_ENV=production webpack --mode=production --config webpack.client.js",
+    "build:server": "NODE_ENV=production webpack --mode=production --config webpack.server.js",
+    "build": "concurrently \"npm run build:client\" \"npm run build:server\"",
+    "dev:client": "webpack --watch --config webpack.client.js",
+    "dev:server": "webpack --watch --config webpack.server.js",
+    "dev": "concurrently \"npm run dev:client\" \"npm run dev:server\"",
+    "start": "rm -rf build/ && npm run dev",
+    "serve": "node build/server/index.js"
+  },
+  "dependencies": {
+    "@babel/runtime": "7.13.8",
+    "express": "4.17.1",
+    "isomorphic-unfetch": "3.1.0",
+    "react": "18.2.0",
+    "react-dom": "18.2.0"
+  },
+  "devDependencies": {
+    "@babel/core": "7.16.0",
+    "@babel/plugin-transform-runtime": "7.15.0",
+    "@babel/preset-env": "7.16.8",
+    "@babel/preset-react": "7.16.7",
+    "@babel/preset-typescript": "7.18.6",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "babel-loader": "8.1.0",
+    "concurrently": "7.6.0",
+    "css-loader": "6.7.2",
+    "html-webpack-plugin": "^5.5.0",
+    "mini-css-extract-plugin": "2.7.2",
+    "nodemon-webpack-plugin": "4.8.1",
+    "style-loader": "3.3.1",
+    "webpack": "^5",
+    "webpack-dev-server": "4.11.1",
+    "webpack-cli": "^5",
+    "webpack-merge": "5.8.0",
+    "webpack-node-externals": "3.0.0"
+  },
+  "keywords": [],
+  "browserslist": [">0.2%", "not dead", "not ie <= 11", "not op_mini all"]
+}
